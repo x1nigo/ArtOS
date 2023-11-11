@@ -1,4 +1,4 @@
-# VoidOS
+# Artos
 This is my bootstrapping script for arch/artix linux.
 
 ## Requirements
