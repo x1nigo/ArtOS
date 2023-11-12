@@ -71,9 +71,9 @@ adduserandpass() {
 }
 
 getaurhelper() {
-	git -C "$repodir" clone https://aur.archlinux.org/$aurhelper.git >/dev/null 2>&1
+	sudo -u "$name" git -C "$repodir" clone https://aur.archlinux.org/$aurhelper.git >/dev/null 2>&1
 	cd "$repodir"/$aurhelper
-	sudo -u "$name" makepkg -si
+	sudo -u "$name" makepkg -si >/dev/null 2>&1
 }
 
 refreshkeys() {
@@ -128,8 +128,6 @@ getdotfiles() {
 	shopt -s dotglob && sudo -u "$name" rsync -r * /home/$name/
 	# Install the file manager.
 	cd /home/$name/.config/lf && chmod +x lfrun scope cleaner && mv lfrun /usr/bin/
-	# Install Gruvbox GTK theme for the system.
-	cd "$repodir"/Gruvbox-GTK-Theme && sudo -u "$name" mv themes /home/$name/.local/share && sudo -u "$name" mv icons /home/$name/.local/share
 	# Link specific filed to home directory.
 	ln -sf /home/$name/.config/x11/xprofile /home/$name/.xprofile
 	ln -sf /home/$name/.config/shell/profile /home/$name/.zprofile
@@ -161,7 +159,7 @@ removebeep() {
 cleanup() {
 	cd # Return to root
  	rm -r ~/artos ; rm /tmp/progs.csv
-	rm -r "$repodir"/dotfiles "$repodir"/Gruvbox-GTK-Theme "$repodir"/$aurhelper
+	rm -r "$repodir"/dotfiles "$repodir"/$aurhelper
 	rm -r /home/$name/.git
 	rm -r /home/$name/README.md
  	sudo -u $name mkdir -p /home/$name/.config/gnupg/
@@ -179,14 +177,14 @@ changeshell() {
 	echo "# .bashrc
 
 alias ls='ls --color=auto'
-PS1=\"\[\e[1;31m\][\u \[\e[0m\]on \[\e[1;35m\]\h \[\e[1;34m\]\w\[\e[1;31m\]]\[\e[0m\]
--\[\e[31m\]&\[\e[0m\] \""> ~/.bashrc || error "Could not change shell for the user."
+PS1=\"\[\e[1;31m\]\u on \h \[\e[1;34m\]\w\[\e[0m\]
+-\[\e[1;31m\]&\[\e[0m\] \""> ~/.bashrc || error "Could not change shell for the user."
 }
 
 depower() {
 	echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers.d/00-wheels-can-sudo
 	rm /etc/sudoers.d/wheel >/dev/null 2>&1 # Remove the spare wheel config file
-	echo "%wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/poweroff,/usr/bin/reboot,/usr/bin/su,/usr/bin/make clean install,/usr/bin/make install,/usr/bin/xbps-install -Su,/usr/bin/xbps-install -S,/usr/bin/xbps-install -u,/usr/bin/mount,/usr/bin/umount,/usr/bin/cryptsetup,/usr/bin/simple-mtpfs,/usr/bin/fusermount" > /etc/sudoers.d/01-no-password-commands
+	echo "%wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/poweroff,/usr/bin/reboot,/usr/bin/su,/usr/bin/make clean install,/usr/bin/make install,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/pacman -Sy,/usr/bin/pacman -Su,/usr/bin/mount,/usr/bin/umount,/usr/bin/cryptsetup,/usr/bin/simple-mtpfs,/usr/bin/fusermount" > /etc/sudoers.d/01-no-password-commands
 }
 
 ### The Main Function ###
@@ -200,17 +198,17 @@ openingmsg
 # Gets the username and password.
 getuserandpass || error "Failed to get username and password."
 
-# Install the AUR helper.
-getaurhelper || error "Failed to get an AUR helper."
-
-# Refresh the Arch/Artix Linux keys.
-refreshkeys || error "Failed to get updated keys."
-
 # The pre-install message. Last chance to get out of this.
 preinstallmsg|| error "Failed to prompt the user properly."
 
 # Add the username and password given earlier.
 adduserandpass || error "Failed to add user and password."
+
+# Install the AUR helper.
+getaurhelper || error "Failed to get an AUR helper."
+
+# Refresh the Arch/Artix Linux keys.
+refreshkeys || error "Failed to get updated keys."
 
 # Grants unlimited permission to the root user (temporarily).
 permission || error "Failed to change permissions for user."
@@ -220,6 +218,10 @@ installpkgs || error "Failed to install the necessary packages."
 
 # Install the dotfiles in the user's home directory.
 getdotfiles || error "Failed to install the user's dotfiles."
+
+# Make pacman colorful, concurrent downloads and Pacman eye-candy.
+grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
+sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 
 # Updates udev rules to allow tapping and natural scrolling, etc.
 updateudev
