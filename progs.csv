@@ -10,6 +10,7 @@
 ,fff,The fucking fast file-manager written in bash
 ,dunst,A lightweight notification-daemon
 ,ungoogled-chromium,An alternative free and open-source browser to Google's Chrome
+A,librewolf-bin,A privacy oriented fork of Firefox
 A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,libnotify,Library for sending desktop notifications
 ,mpd,A music player daemon
@@ -23,6 +24,7 @@ A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,sof-firmware,Sound open firmware for audio
 ,pulsemixer,CLI and curses mixer for pulseaudio/pipewire
 ,bluez,Daemon for bluetooth
+,bluez-utils,Development and debugging utilities for bluetooth
 ,libspa-bluetooth,To enable bluetooth compatibility with pipewire
 ,yt-dlp,Allows you to download media from YouTube
 ,acpilight,A backward-compatible xbacklight replacement based on ACPI
@@ -35,6 +37,7 @@ A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,libertinus-font,Libertine TTF Fonts - Libre multilingual font family
 ,noto-fonts,Google Noto TTF Fonts
 ,noto-fonts-emoji,Google Noto Emoji Fonts
+A,ttf-ms-fonts,A collection of Microsoft fonts
 ,zsh,The Zoomer Shell
 A,zsh-fast-syntax-highlighting-git,"provides syntax highlighting in the shell."
 ,maim,Utility that takes a screenshot of your desktop

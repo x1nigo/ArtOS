@@ -30,21 +30,21 @@ Updating repositories and installing dependencies...
 
 openingmsg() {
 	whiptail --title "Introduction" \
-		--msgbox "Welcome to Chris Iñigo's Bootstrapping Script for Artix Linux! This will install a fully-functioning linux desktop, which I hope may prove useful to you as it did for me.\\n\\n-Chris" 12 60 || error "Failed to show opening message."
+		--msgbox "Welcome to Chris Iñigo's Bootstrapping Script for Artix Linux! This will install a fully-functioning linux desktop, which I hope may prove useful to you as it did for me.\\n\\n-Chris" 12 70 || error "Failed to show opening message."
 }
 
 getuserandpass(){
 	# Prompts user for new username an password.
-	name=$(whiptail --inputbox "First, please enter a name for the user account." 10 60 3>&1 1>&2 2>&3 3>&1) || exit 1
+	name=$(whiptail --inputbox "First, please enter a name for the user account." 10 70 3>&1 1>&2 2>&3 3>&1) || exit 1
 	while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
-		name=$(whiptail --nocancel --inputbox "Username not valid. Give a name beginning with a letter, with only lowercase letters, - or _." 10 60 3>&1 1>&2 2>&3 3>&1)
+		name=$(whiptail --nocancel --inputbox "Username not valid. Give a name beginning with a letter, with only lowercase letters, - or _." 10 70 3>&1 1>&2 2>&3 3>&1)
 	done
 	pass1=$(whiptail --nocancel --passwordbox "Enter a password for that user." 10 60 3>&1 1>&2 2>&3 3>&1)
-	pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+	pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 70 3>&1 1>&2 2>&3 3>&1)
 	while ! [ "$pass1" = "$pass2" ]; do
 		unset pass2
 		pass1=$(whiptail --nocancel --passwordbox "Passwords do not match.\\n\\nEnter password again." 10 60 3>&1 1>&2 2>&3 3>&1)
-		pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 60 3>&1 1>&2 2>&3 3>&1)
+		pass2=$(whiptail --nocancel --passwordbox "Retype password." 10 70 3>&1 1>&2 2>&3 3>&1)
 	done
 }
 
@@ -52,7 +52,7 @@ preinstallmsg() {
 	whiptail --title "Resolution" \
 		--yes-button "Let's go!" \
 		--no-button "I...I can barely stand." \
-		--yesno "The installation script will be fully automated from this point onwards.\\n\\nAre you ready to begin?" 12 60 || {
+		--yesno "The installation script will be fully automated from this point onwards.\\n\\nAre you ready to begin?" 12 70 || {
 		clear
 		exit 1
 	}
@@ -106,13 +106,13 @@ finalize () {
 ### Main Installation ###
 
 installpkgs() {
-	curl -Ls "$progsfile" | sed '/^#/d' > /tmp/progs.csv
+	[ ! -f ~/artos/progs.csv ] && { curl -Ls "$progsfile" | sed '/^#/d' > /tmp/progs.csv } || { cat ~/artos/progs.csv | sed '/^#/d' > /tmp/progs.csv }
 	total=$(( $(wc -l < /tmp/progs.csv) ))
 	n=0
 	while IFS=, read -r tag program description
 	do
 		n=$(( n + 1 ))
-		whiptail --infobox "Installing \`$program\` ($n of $total). $description." 8 70
+		whiptail --infobox "Installing \`$program\` ($n of $total). \"$description.\"" 8 70
 		case $tag in
 			G) sudo -u "$name" git -C "$repodir" clone "$program" >/dev/null 2>&1 ;;
 			A) sudo -u "$name" yay -S --noconfirm --needed "$program" >/dev/null 2>&1 ;;
