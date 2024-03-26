@@ -33,7 +33,7 @@ openingmsg() {
 		--msgbox "Welcome to Chris Iñigo's Bootstrapping Script for Artix Linux! This will install a fully-functioning linux desktop, which I hope may prove useful to you as it did for me.\\n\\n-Chris" 12 70 || error "Failed to show opening message."
 }
 
-getuserandpass(){
+getuserandpass() {
 	# Prompts user for new username an password.
 	name=$(whiptail --inputbox "First, please enter a name for the user account." 10 70 3>&1 1>&2 2>&3 3>&1) || exit 1
 	while ! echo "$name" | grep -q "^[a-z_][a-z0-9_-]*$"; do
@@ -61,8 +61,7 @@ preinstallmsg() {
 adduserandpass() {
 	# Adds user `$name` with password $pass1.
 	whiptail --infobox "Adding user \"$name\"..." 7 50
-	useradd -m -g wheel -s /bin/zsh "$name" >/dev/null 2>&1 ||
-		usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
+	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	export repodir="/home/$name/.local/src"
 	mkdir -p "$repodir"
 	chown -R "$name":wheel "$(dirname "$repodir")"
@@ -70,7 +69,12 @@ adduserandpass() {
 	unset pass1 pass2
 }
 
+permission() {
+	echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/00-wheels-can-sudo
+}
+
 getaurhelper() {
+	whiptail --infobox "Installing AUR helper..." 7 50
 	sudo -u "$name" git -C "$repodir" clone https://aur.archlinux.org/$aurhelper.git >/dev/null 2>&1
 	cd "$repodir"/$aurhelper
 	sudo -u "$name" makepkg -si >/dev/null 2>&1
@@ -95,11 +99,7 @@ Include = /etc/pacman.d/mirrorlist-arch" >>/etc/pacman.conf
 	esac
 }
 
-permission() {
-	echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/00-wheels-can-sudo
-}
-
-finalize () {
+finalize() {
 	whiptail --title "Done!" --msgbox "Installation complete! If you see this message, then there's a pretty good chance that there were no (hidden) errors. You may log out and log back in with your new name.\\n\\n-Chris" 12 60
 }
 
@@ -204,14 +204,14 @@ preinstallmsg|| error "Failed to prompt the user properly."
 # Add the username and password given earlier.
 adduserandpass || error "Failed to add user and password."
 
+# Grants unlimited permission to the root user (temporarily).
+permission || error "Failed to change permissions for user."
+
 # Install the AUR helper.
 getaurhelper || error "Failed to get an AUR helper."
 
 # Refresh the Arch/Artix Linux keys.
 refreshkeys || error "Failed to get updated keys."
-
-# Grants unlimited permission to the root user (temporarily).
-permission || error "Failed to change permissions for user."
 
 # The main installation loop.
 installpkgs || error "Failed to install the necessary packages."
