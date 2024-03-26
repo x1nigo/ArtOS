@@ -77,7 +77,7 @@ getaurhelper() {
 	whiptail --infobox "Installing AUR helper..." 7 50
 	sudo -u "$name" git -C "$repodir" clone https://aur.archlinux.org/$aurhelper.git >/dev/null 2>&1
 	cd "$repodir"/$aurhelper
-	sudo -u "$name" makepkg -si >/dev/null 2>&1
+	sudo -u "$name" makepkg --noconfirm -si >/dev/null 2>&1
 }
 
 refreshkeys() {
