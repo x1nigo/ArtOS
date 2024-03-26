@@ -27,9 +27,9 @@ A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,bluez-utils,Development and debugging utilities for bluetooth
 ,libspa-bluetooth,To enable bluetooth compatibility with pipewire
 ,yt-dlp,Allows you to download media from YouTube
-,acpilight,A backward-compatible xbacklight replacement based on ACPI
 ,xorg,You need this for the X server graphical interface
 ,xorg-xinit,X init program (so you can start your X session)
+,acpilight,A backward-compatible xbacklight replacement based on ACPI
 ,xdg-user-dirs,Helps manage user directories
 ,xdg-utils,Tools to assist applications with various desktop integration tasks
 ,gnome-keyring,Stores secrets/passwords/keys/certs for applications
