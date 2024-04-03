@@ -9,7 +9,6 @@
 ,lf,A terminal file manager written in Go
 ,fff,The fucking fast file-manager written in bash
 ,dunst,A lightweight notification-daemon
-,ungoogled-chromium,An alternative free and open-source browser to Google's Chrome
 A,librewolf-bin,A privacy oriented fork of Firefox
 A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,libnotify,Library for sending desktop notifications
