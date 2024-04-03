@@ -61,7 +61,7 @@ preinstallmsg() {
 adduserandpass() {
 	# Adds user `$name` with password $pass1.
 	whiptail --infobox "Adding user \"$name\"..." 7 50
-	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
+	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1
 	export repodir="/home/$name/.local/src"
 	mkdir -p "$repodir"
 	chown -R "$name":wheel "$(dirname "$repodir")"
@@ -106,7 +106,7 @@ finalize() {
 ### Main Installation ###
 
 installpkgs() {
-	[ ! -f ~/artos/progs.csv ] && { curl -Ls "$progsfile" | sed '/^#/d' > /tmp/progs.csv } || { cat ~/artos/progs.csv | sed '/^#/d' > /tmp/progs.csv }
+	curl -Ls "$progsfile" | sed '/^#/d' > /tmp/progs.csv
 	total=$(( $(wc -l < /tmp/progs.csv) ))
 	n=0
 	while IFS=, read -r tag program description
