@@ -127,7 +127,7 @@ getdotfiles() {
 	cd "$repodir"/dotfiles
 	shopt -s dotglob && sudo -u "$name" rsync -r * /home/$name/
 	# Install the file manager.
-	cd /home/$name/.config/lf && chmod +x lfrun scope cleaner && mv lfrun /usr/bin/
+	cd /home/$name/.config/lf && chmod +x lfx scope cleaner && mv lfx /usr/bin/
 	# Link specific filed to home directory.
 	ln -sf /home/$name/.config/x11/xprofile /home/$name/.xprofile
 	ln -sf /home/$name/.config/shell/profile /home/$name/.zprofile
@@ -174,11 +174,6 @@ changeshell() {
 	# Make sure the user's shell is `zsh` and root's is `bash`.
 	chsh -s /bin/bash >/dev/null 2>&1
 	chsh -s /bin/zsh $name >/dev/null 2>&1
-	echo "# .bashrc
-
-alias ls='ls --color=auto'
-PS1=\"\[\e[1;31m\]\u on \h \[\e[1;34m\]\w\[\e[0m\]
--\[\e[1;31m\]&\[\e[0m\] \""> ~/.bashrc || error "Could not change shell for the user."
 }
 
 depower() {
