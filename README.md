@@ -1,20 +1,16 @@
-# Artos
+# Artos[^1]
+
 This is my bootstrapping script for arch/artix linux.
 
-## Requirements
-- A newly installed arch/artix linux system.
-- An internet connection.
-- Make sure you run this script as `root`.
+## How to install
 
-```
-git clone https://github.com/x1nigo/artos.git
-cd artos
-sh artos.sh
-```
-## What does it install?
-Aside from the programs listed in `progs.csv`, artos installs my configuration files and my other suckless software repositories:
-- [dotfiles](https://github.com/x1nigo/dotfiles) &ndash; My dotfiles
-- [dwm](https://github.com/x1nigo/dwm) &ndash; The window manager
-- [st](https://github.com/x1nigo/st) &ndash; The terminal emulator
-- [dmenu](https://github.com/x1nigo/dmenu) &ndash; The dynamic menu launcher
-- [dwmblocks](https://github.com/x1nigo/dwmblocks) &ndash; The status bar
+1. Clone the repository: `git clone https://github.com/x1nigo/artos.git`.
+2. Enter the directory: `cd artos`.
+3. Give the script execute permissions: `chmod +x artos.sh`.
+4. Run the script: `./artos.sh`.
+
+## Need-to-know
+
+- At any point in the graphical environment, type `super + F1` to read some documentation.
+
+[^1]: This is tailored to my system, so there may be some slight tweaks that you may need to do for your specific computer.
