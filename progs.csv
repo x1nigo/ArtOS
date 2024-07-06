@@ -1,23 +1,16 @@
 #TAG,NAME IN REPO (or git url),DESCRIPTION (a short description about the program)
-,sxiv,The simple X image viewer
+,nsxiv,The simple X image viewer
 ,zathura,A document viewer
 ,zathura-pdf-mupdf,Support for PDF and similar documents
 ,mpv,A terminal media player
 ,ffmpeg,A video converter
 ,picom,Compositor for X11
 ,xwallpaper,A wallpaper setting utility for X
-,lf,A terminal file manager written in Go
-,fff,The fucking fast file-manager written in bash
 ,dunst,A lightweight notification-daemon
 A,librewolf-bin,A privacy oriented fork of Firefox
 A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,libnotify,Library for sending desktop notifications
-,mpd,A music player daemon
-,ncmpcpp,An ncurses music player daemon client
-,mpc,Command-line client for mpd
-,newsboat,An RSS/Atom feed reader for terminals
 ,transmission-cli,A torrent client for the terminal
-,stig,A curses interface for transmission-daemon
 ,pipewire,A program to enable audio
 ,wireplumber,Session manager implementation for pipewire
 ,sof-firmware,Sound open firmware for audio
@@ -29,38 +22,24 @@ A,gtk-theme-arc-gruvbox-git,A dark Gruvbox gtk theme for Artos
 ,xorg,You need this for the X server graphical interface
 ,xorg-xinit,X init program (so you can start your X session)
 ,acpilight,A backward-compatible xbacklight replacement based on ACPI
-,xdg-user-dirs,Helps manage user directories
 ,xdg-utils,Tools to assist applications with various desktop integration tasks
-,gnome-keyring,Stores secrets/passwords/keys/certs for applications
 ,ttf-dejavu,Displays emojis properly
-,libertinus-font,Libertine TTF Fonts - Libre multilingual font family
 ,noto-fonts,Google Noto TTF Fonts
 ,noto-fonts-emoji,Google Noto Emoji Fonts
-A,ttf-ms-fonts,A collection of Microsoft fonts
-,zsh,The Zoomer Shell
-A,zsh-fast-syntax-highlighting-git,"provides syntax highlighting in the shell."
 ,maim,Utility that takes a screenshot of your desktop
 ,xcape,Modifies keys to act as other keys when pressed/released
 ,unzip,Unzip zipped files
-,lynx,A browser for the terminal
 ,xclip,Basically the clipboard
 ,xdotool,Command-line X11 automation tool
-,bat,Concatenate files with syntax highlighting
 ,polkit,An authorization manager/toolkit
 A,simple-mtpfs,To mount Android devices
-A,mutt-wizard,A light-weight terminal-based email system
 ,slock,The simple X screen locker
 ,fzf,A command-line fuzzy finder
 ,bc,A terminal calculator
 ,ntp,A network protocol reference implementation
 ,xz,XZ compression utilities
 ,7zip,File archiver with a high compression ratio
-,groff,GNU troff text-formatting system
 ,pkg-config,System for managing library compile/link flags
-,ueberzug,Command line util which allows drawing images on terminals
-,ffmpegthumbnailer,Lightweight video thumbnailer
-,poppler,PDF rendering library (PDF previews)
 G,https://github.com/x1nigo/dwm.git,The suckless dynamic window manager
 G,https://github.com/x1nigo/st.git,The simple terminal
 G,https://github.com/x1nigo/dmenu.git,The dynamic menu
-G,https://github.com/x1nigo/dwmblocks.git,Modular status bar for dwm written in C
